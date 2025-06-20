@@ -51,7 +51,7 @@ function load() {
     if (save) {
         mins = save.mins; autoMiners = save.autoMiners; prestigeLevel = save.prestigeLevel;
         let offlineTime = (Date.now() - save.lastActive) / 1000;
-        let offlineMins = autoMiners * 0.1 * offlineTime * 2 * (1 + 0.05 * prestigeLevel);
+        let offlineMins = autoMiners * 0.1 * offlineTime * 28 * (1 + 0.05 * prestigeLevel);
         mins += offlineMins;
     }
     let settings = JSON.parse(localStorage.getItem("settings"));
