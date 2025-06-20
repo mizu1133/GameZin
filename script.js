@@ -59,3 +59,14 @@ function load() {
     updateUI(); setInterval(passiveMine, 1000);
 }
 window.onload = load;
+
+
+function convertZinToSatoshi(zin) {
+    const conversionRate = 1000;
+    return zin / conversionRate;
+}
+
+function convertZinToBTC(zin) {
+    const satoshis = convertZinToSatoshi(zin);
+    return satoshis * 0.00000001;
+}
