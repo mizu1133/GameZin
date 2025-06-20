@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Zin Mining Game</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="style_zin.css"></head><body><div class="container"><h1 id="mins">0 Mins</h1><button onclick="mine()">Zin Mine</button><p id="rate">Passive Income: 0 Mins/sec</p><button onclick="buyAutoMiner()"><button id="buyAutoMinerBtn" onclick="buyAutoMiner()">Buy Auto-Miner (Cost: 10+5x)</button><button onclick="prestige()">Prestige</button><button onclick="exportBTC()">Export BTC Payment</button><button onclick="openSettings()">Settings</button></div><div id="settings" class="modal"><div class="modal-content"><h3>Settings</h3><label>BTC Address:</label><br><input type="text" id="btcAddress"><br><label>Conversion Rate (BTC per Min):</label><br><input type="number" step="any" id="conversionRate"><br><br><button onclick="saveSettings()">Save</button><button onclick="closeSettings()">Cancel</button></div></div><script src="script.js"></script>
+<div class="container" id="conversion">
+    <h2>Zin to BTC Converter</h2>
+    <input type="number" id="zinInput" placeholder="Enter Zin amount" />
+    <button onclick="showBTC()">Convert</button>
+    <p id="btcResult"></p>
+</div>
+
+<script>
+function convertZinToSatoshi(zin) {
+    const conversionRate = 1000;
+    return zin / conversionRate;
+}
+
+function convertZinToBTC(zin) {
+    const satoshis = convertZinToSatoshi(zin);
+    return satoshis * 0.00000001;
+}
+
+function showBTC() {
+    const zinAmount = parseFloat(document.getElementById("zinInput").value);
+    if (isNaN(zinAmount) || zinAmount < 0) {
+        document.getElementById("btcResult").innerText = "Please enter a valid Zin amount.";
+        return;
+    }
+    const sats = convertZinToSatoshi(zinAmount);
+    const btc = convertZinToBTC(zinAmount);
+    document.getElementById("btcResult").innerText =
+        zinAmount + " Zin = " + sats.toFixed(2) + " sats = " + btc.toFixed(8) + " BTC";
+}
+</script>
+
+</body></html>
