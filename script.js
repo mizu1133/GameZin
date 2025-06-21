@@ -50,6 +50,12 @@ function generatePayoutQR(btcAmount, walletAddress) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Restore last saved state if available
+  if (localStorage.getItem("zinCount")) zinCount = parseInt(localStorage.getItem("zinCount"));
+  if (localStorage.getItem("zinPerSec")) zinPerSec = parseInt(localStorage.getItem("zinPerSec"));
+  if (localStorage.getItem("btcVault")) btcVault = parseFloat(localStorage.getItem("btcVault"));
+
+  // Offline reward logic
   let lastActiveTime = localStorage.getItem("lastActiveTime");
   if (lastActiveTime) {
     const secondsAway = Math.floor((Date.now() - parseInt(lastActiveTime)) / 1000);
@@ -65,6 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGameDisplay();
   }, 1000);
 
+  // Save lastActiveTime every 10 seconds (failsafe)
+  setInterval(() => {
+    localStorage.setItem("lastActiveTime", Date.now());
+    localStorage.setItem("zinCount", zinCount);
+    localStorage.setItem("zinPerSec", zinPerSec);
+    localStorage.setItem("btcVault", btcVault);
+  }, 10000);
+
+  // QR payout
   const payoutBtn = document.getElementById("generatePayoutQR");
   if (payoutBtn) {
     payoutBtn.addEventListener("click", () => {
@@ -78,4 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 window.addEventListener("beforeunload", () => {
   localStorage.setItem("lastActiveTime", Date.now());
+  localStorage.setItem("zinCount", zinCount);
+  localStorage.setItem("zinPerSec", zinPerSec);
+  localStorage.setItem("btcVault", btcVault);
 });
