@@ -2,39 +2,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GameZin</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Idle Mining Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GameZin</h1>
+    <div class="container">
+        <h1 id="mins">0 Mins</h1>
+        <button onclick="mine()">Mine</button>
+        <p id="rate">Passive Income: 0 Mins/sec</p>
+        <button onclick="buyAutoMiner()">Buy Auto-Miner</button>
+        <button onclick="prestige()">Prestige</button>
+        <button onclick="exportBTC()">Export BTC Payment</button>
+        <button onclick="openSettings()">Settings</button>
+    </div>
 
-  <div id="game">
-    <p>Zin: <span id="zinCount">0</span></p>
-    <button onclick="mineZin()">Mine</button>
-    <button onclick="upgradeZin()">Upgrade (Cost: <span id="upgradeCost">100</span> Zin)</button>
-    <p>Zin/sec: <span id="zinPerSec">1</span></p>
-  </div>
+    <div id="settings" class="modal">
+        <div class="modal-content">
+            <h3>Settings</h3>
+            <label>BTC Address:</label><br>
+            <input type="text" id="btcAddress"><br>
+            <label>Conversion Rate (BTC per Min):</label><br>
+            <input type="number" step="any" id="conversionRate"><br><br>
+            <button onclick="saveSettings()">Save</button>
+            <button onclick="closeSettings()">Cancel</button>
+        </div>
+    </div>
 
-  <hr>
-
-  <div id="vault">
-    <h2>BTC Vault</h2>
-    <p>Zin Earned: <span id="zinBalance">0</span></p>
-    <p>BTC Stored: <span id="btcVault">0.00000000</span> BTC</p>
-    <button onclick="convertZinToVault()">Convert Zin to BTC Vault</button>
-  </div>
-
-  <div id="withdraw">
-    <h2>Withdraw BTC</h2>
-    <input type="text" id="btcAddress" placeholder="Enter BTC Wallet Address" />
-    <button id="generatePayoutQR">Generate BTC QR</button>
-    <p id="btcAmountDisplay"></p>
-    <canvas id="btcQR"></canvas>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
