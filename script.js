@@ -50,6 +50,14 @@ function generatePayoutQR(btcAmount, walletAddress) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  let lastActiveTime = localStorage.getItem("lastActiveTime");
+  if (lastActiveTime) {
+    const secondsAway = Math.floor((Date.now() - parseInt(lastActiveTime)) / 1000);
+    const offlineGain = zinPerSec * 511 * secondsAway;
+    zinCount += offlineGain;
+    alert(`You earned ${offlineGain.toLocaleString()} Zin while offline!`);
+  }
+
   updateGameDisplay();
 
   setInterval(() => {
@@ -66,4 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+});
+
+window.addEventListener("beforeunload", () => {
+  localStorage.setItem("lastActiveTime", Date.now());
 });
